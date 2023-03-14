@@ -15,14 +15,14 @@ type Props = {
 
 function MovieListItem({ movie, addMovieToFavourites, removeMovieFromFavourites, isFavourite }: Props) {
 
-    const { id, title, posterurl, ratings } = movie;
+    const { id, title, poster, ratings } = movie;
     const { category } = useParams();
 
     return (
         <>
             <Card className='my-3' style={{ width: '20rem' }}>
                 <Card.Img
-                    variant="top" src={posterurl} alt={title}
+                    variant="top" src={`${process.env.REACT_APP_API_BASE_URL}/img/${poster}`} alt={title}
                     style={{ height: '25rem' }}
                 />
                 <Card.Body>

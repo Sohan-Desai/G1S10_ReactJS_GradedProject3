@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path='/:category/:id' element={<MovieDetails />} />
           <Route path='/:category' element={<HomePage />} />
-          <Route path='*' element={<Navigate to='/movies-in-theatres' />} />
+          <Route path='*' element={<Navigate to='/movies-in-theaters' />} />
         </Routes>
       </MovieContextProvider>
     </div>
