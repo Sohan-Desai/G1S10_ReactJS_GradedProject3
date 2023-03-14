@@ -1,18 +1,20 @@
-.text-xs{
+.text-xs {
     font-size: 0.625rem;
 }
 
-.text-sm{
+.text-sm {
     font-size: 0.8rem;
 }
 
-.text-lg{
+.text-lg {
     font-size: 1.2rem;
 }
 
-.search{
+.search {
+    display: flex;
+    justify-content: start;
     position: relative;
-    width: 16rem;
+    min-width: 100%;
     height: 2rem;
     background-color: #fff;
     border-radius: 1rem;
@@ -20,38 +22,29 @@
     overflow: hidden;
 }
 
-.search .icon{
-    position: absolute;
-    top: 0;
-    left: 0;
+.search .icon {
+    position: relative;
     width: 2rem;
     height: 2rem;
+    left: .5rem;
     background-color: #fff;
-    border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
 }
 
-.search .icon .searchIcon{
+.search .icon .searchIcon {
     color: #777;
 }
 
-.search .input{
+.search .input {
     position: relative;
     width: 13rem;
     height: 2rem;
-    left: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    left: .5rem;
 }
 
-.search .input .mySearch{
-    position: absolute;
-    top: 0;
+.search .input .mySearch {
     width: 100%;
     height: 100%;
     display: flex;
@@ -59,29 +52,72 @@
     align-items: center;
 }
 
-.search .mySearch input{
+.search .mySearch input {
+    display: block;
     position: relative;
     width: 100%;
     height: 100%;
     border: none;
     outline: none;
-
 }
+
+.detailsImage{
+    height: 30rem;
+    margin: 1rem auto;
+    cursor: pointer;
+}
+
+.back{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    width: 8rem;
+    height: 3rem;
+    margin: 1rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    transition: .3s ease;
+}
+
+.back:hover{
+    color: #192bc2;
+    box-shadow: 0 0 3px 2px #ccc;
+}
+
+.noResults>p{
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: auto;
+    text-align: center;
+    color: #777;
+    margin: 1rem;
+}
+
+/* #################################### media queries for responsiveness #################################### */
 
 @media only screen and (max-width: 1200px) {
     :root {
-      font-size: 85%;
+        font-size: 85%;
+    }
+    .detailsImage{
+        height: 28rem;
+        margin: 2rem auto;
     }
 }
 
 @media only screen and (max-width: 991px) {
-    Nav .animation{
-        display: none;
+    .search {
+        width: 100%;
+    }
+
+    .search .input {
+        width: 95%;
     }
 }
 
 @media only screen and (max-width: 500px) {
     :root {
-      font-size: 65%;
+        font-size: 65%;
     }
 }

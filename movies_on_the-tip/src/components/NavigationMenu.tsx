@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -6,15 +6,28 @@ import Navbar from 'react-bootstrap/Navbar';
 import { faClapperboard, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
+import { useGlobalContext } from '../services/MoviesContext';
 
 type Props = {
-    onInputChange: (val: string) => void;
+
 }
 
-const NavigationMenu = ({ onInputChange }: Props) => {
+const NavigationMenu = () => {
+
+    const { getSearchQuery } = useGlobalContext();
+    const [debouncedValue, setDebouncedValue] = useState<string>('')
+
+    useEffect(() => {
+      const timer = setTimeout(() => getSearchQuery(debouncedValue), 800)
+  
+      return () => {
+        clearTimeout(timer)
+      }
+    }, [debouncedValue])
+  
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        onInputChange(event.target.value);
+        setDebouncedValue(event.target.value);
     }
 
     return (
@@ -36,22 +49,24 @@ const NavigationMenu = ({ onInputChange }: Props) => {
                             <Nav.Link to={'/top-rated-movies'} as={NavLink}>Top rated movies</Nav.Link>
                             <Nav.Link to={'/favourite'} as={NavLink}>Favourites</Nav.Link>
                         </Nav>
-                        <div className='search me-3'>
-                            <div className='icon'>
-                                <FontAwesomeIcon icon={faSearch} className='searchIcon' />
+                        <Form className="d-flex justify-content-center">
+                            <div className='search me-3'>
+                                <div className='icon'>
+                                    <FontAwesomeIcon icon={faSearch} className='searchIcon' />
+                                </div>
+                                <div className='input'>
+                                    <div className='mySearch'>
+                                        <input
+                                            type="search"
+                                            placeholder="Search for movies..."
+                                            className="me-2"
+                                            aria-label="Search"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className='input'>
-                                <Form className='mySearch'>
-                                    <input
-                                        type="search"
-                                        placeholder="Search for movies"
-                                        className="me-2"
-                                        aria-label="Search"
-                                        onChange={handleChange}
-                                    />
-                                </Form>
-                            </div>
-                        </div>
+                        </Form>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
