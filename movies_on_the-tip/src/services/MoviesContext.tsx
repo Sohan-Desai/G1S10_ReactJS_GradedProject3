@@ -43,11 +43,9 @@ export const MovieContextProvider: React.FC<Props> = ({ children }) => {
       try {
         const data = await getMoviesFromServer('favourite');
         setFavourites(data);
-        console.log("Inside fetchFavouriteMovies");
 
       } catch (error: any) {
         setError(error);
-        console.log(error.message);
       }
     }
     fetchFavouriteMovies();
@@ -60,10 +58,6 @@ export const MovieContextProvider: React.FC<Props> = ({ children }) => {
 
   const removeFromFavourite = (favouriteMovie: IMovieItem) => {
     setFavourites(favourites.filter((movie) => movie.id !== favouriteMovie.id))
-  }
-
-  const isFavourite = (id: string) => {
-    return favourites.some((movie) => movie.id === id);
   }
 
   const getSearchQuery = (val: string) => {

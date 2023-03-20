@@ -20,12 +20,15 @@ function MovieListItem({ movie, addMovieToFavourites, removeMovieFromFavourites,
 
     return (
         <>
-            <Card className='my-3' style={{ width: '20rem' }}>
-                <Card.Img
-                    variant="top" src={`${process.env.REACT_APP_API_BASE_URL}/img/${poster}`} alt={title}
-                    style={{ height: '25rem' }}
-                />
-                <Card.Body>
+            <Card className='my-3' style={{ width: '18rem' }}>
+                <div className='imageBox'>
+                    <Card.Img
+                        variant="top" src={`${process.env.REACT_APP_API_BASE_URL}/img/${poster}`} alt={title}
+                        style={{ height: '20rem' }}
+                    />
+                    <div className='bgDark'></div>
+                </div>
+                <Card.Body style={{ height: '11rem' }}>
                     <div>
                         <div className='d-flex justify-content-between align-items-center'>
                             <Card.Title>{title}</Card.Title>

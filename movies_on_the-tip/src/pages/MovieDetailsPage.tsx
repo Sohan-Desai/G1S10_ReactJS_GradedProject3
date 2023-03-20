@@ -4,11 +4,10 @@ import { LoadingStatus } from '../models/types';
 import LoadingIndicator from '../components/utility/LoadingIndicator';
 import { Row, Col, Alert, Button, Badge, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Rating from '../components/utility/Rating';
 import { getMovieById } from '../services/Movies';
 import { useParams, useNavigate } from 'react-router-dom';
-import ImageModal from '../components/utility/ImageModal';
 
 type Props = {
 
@@ -24,6 +23,14 @@ const MovieDetailsPage = () => {
     const params = useParams();
     const navigate = useNavigate();
     const { category, id } = params;
+
+    const handleOpenModal = () => {
+        setModalshow(true)
+    }
+
+    const handleCloseModal = () => {
+        setModalshow(false);
+    }
 
     let element;
 
@@ -53,7 +60,7 @@ const MovieDetailsPage = () => {
             break;
 
         case 'LOADED':
-            const { 
+            const {
                 title,
                 imdbRating,
                 averageRating,
@@ -63,20 +70,22 @@ const MovieDetailsPage = () => {
                 contentRating,
                 actors,
                 storyline,
-                posterurl,
-                ratings 
+                poster,
+                ratings
             } = movie as IMovieItem;
 
             element = (
                 <>
                     <Row className='my-5'>
                         <Col xs={12} lg={3} className='d-flex justify-content-center'>
-                            <img
-                                src={posterurl}
-                                alt={title}
-                                className="detailsImage"
-                                onClick={() => setModalshow(true)}
-                            />
+                            <div className='imageWrap imageBox'>
+                                <img
+                                    src={`${process.env.REACT_APP_API_BASE_URL}/img/${poster}`}
+                                    alt={title}
+                                    className="detailsImage"
+                                />
+                                <div className='bgDark' onClick={() => handleOpenModal()}></div>
+                            </div>
                         </Col>
                         <Col xs={12} lg={9} className='d-grid gap-1 px-5 my-3 text-lg'>
                             <Row>
@@ -135,12 +144,23 @@ const MovieDetailsPage = () => {
                             </Row>
                         </Col>
                     </Row>
-                    <ImageModal
-                        show={modalShow}
-                        onHide={() => setModalshow(false)}
-                        title={title}
-                        posterurl={posterurl}
-                    />
+                    {
+                        modalShow && (
+                            <div className='lightBox'>
+                                <FontAwesomeIcon
+                                    icon={faCircleXmark}
+                                    className='btnClose'
+                                    onClick={handleCloseModal}
+                                />
+                                <div className='fullScreenImage'>
+                                    <img
+                                        src={`${process.env.REACT_APP_API_BASE_URL}/img/${poster}`}
+                                        alt={title}
+                                    />
+                                </div>
+                            </div>
+                        )
+                    }
                 </>
             );
             break;
