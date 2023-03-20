@@ -107,7 +107,7 @@
 
 .back:hover{
     color: #192bc2;
-    box-shadow: 0 0 3px 2px #ccc;
+    box-shadow: 0 0 3px 2px hsla(0, 0%, 80%, 0.753);
 }
 
 .lightBox{
